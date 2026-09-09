@@ -11,7 +11,9 @@
             --accent: #ff4757;
             --text: #f1f2f6;
             --text-muted: #a4b0be;
+            --success: #2ed573;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
@@ -22,7 +24,94 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow: hidden;
         }
+
+        #loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
+        }
+
+        .loader-logo {
+            width: 96px;
+            height: 96px;
+            margin-bottom: 1.5rem;
+            image-rendering: pixelated;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255, 71, 87, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        .loading-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            height: 24px;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-box {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: left;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+
+        .progress-status {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: monospace;
+        }
+
+        .asset-log {
+            font-size: 0.75rem;
+            color: var(--success);
+            margin-top: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: monospace;
+        }
+
         .container {
             background: var(--panel);
             padding: 2.5rem;
@@ -32,27 +121,39 @@
             max-width: 450px;
             width: 90%;
             border: 1px solid rgba(255, 71, 87, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
+
+        .container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .logo-container {
             margin-bottom: 1rem;
         }
+
         .logo-img {
             width: 80px;
             height: 80px;
             image-rendering: pixelated;
-            image-rendering: crisp-edges;
         }
+
         h1 {
             font-size: 1.8rem;
             margin: 0.5rem 0 1.5rem 0;
             font-weight: 700;
         }
+
         p {
             color: var(--text-muted);
             line-height: 1.6;
             font-size: 0.95rem;
             margin-bottom: 2rem;
         }
+
         .btn-download {
             display: inline-block;
             background: var(--accent);
@@ -62,19 +163,22 @@
             border-radius: 8px;
             font-weight: 600;
             font-size: 1rem;
-            transition: all 0.2s ease;
+            transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
             box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
         }
+
         .btn-download:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(255, 71, 87, 0.6);
         }
+
         .features {
             margin-top: 2rem;
             text-align: left;
             border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 1.5rem;
         }
+
         .feature-item {
             display: flex;
             align-items: center;
@@ -82,32 +186,114 @@
             font-size: 0.85rem;
             color: var(--text-muted);
         }
+
         .feature-item span {
             margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="logo-container">
-    
-        <img class="logo-img" src="icon.png" alt="EdOfuscator Icon">
+    <div id="loader-wrapper">
+        <img class="loader-logo" src="icon.png" alt="Loading Icon">
+        <div class="spinner"></div>
+        <div class="loading-text" id="status-text">Cargando...</div>
+        
+        <div class="progress-box">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="load-bar"></div>
+            </div>
+            <div class="progress-status">
+                <span id="asset-count">Assets cargados: 0/4</span>
+                <span id="percentage-text">0%</span>
+            </div>
+            <div class="asset-log" id="asset-log">Inicializando entorno criptográfico...</div>
+        </div>
     </div>
-    <h1>EdOfuscator</h1>
-    <p>Automated binary-level encryption tool designed for Spigot/Paper Minecraft plugins built with Maven. Secure your intellectual property natively with zero configurations.</p>
-    
-    <a href="https://github.com" class="btn-download" target="_blank">
-        Download EdOfuscator.py
-    </a>
 
-    <div class="features">
-        <div class="feature-item"><span>✅</span> 100% Binary Protection & Byte Array Encryption</div>
-        <div class="feature-item"><span>✅</span> Fully protected source code against text editors</div>
-        <div class="feature-item"><span>✅</span> Windows & Linux native compatibility (32-bit / 64-bit)</div>
-        <div class="feature-item"><span>✅</span> Automated Background Maven Compilation Pipeline</div>
+    <div class="container" id="main-content">
+        <div class="logo-container">
+            <img class="logo-img" src="icon.png" alt="EdOfuscator Icon">
+        </div>
+        <h1>EdOfuscator</h1>
+        <p>Automated binary-level encryption tool designed for Spigot/Paper Minecraft plugins built with Maven. Secure your intellectual property natively with zero configurations.</p>
+        
+        <a href="https://github.com" class="btn-download" target="_blank">
+            Download EdOfuscator.py
+        </a>
+
+        <div class="features">
+            <div class="feature-item"><span>✅</span> 100% Binary Protection & Byte Array Encryption</div>
+            <div class="feature-item"><span>✅</span> Fully protected source code against text editors</div>
+            <div class="feature-item"><span>✅</span> Windows & Linux native compatibility (32-bit / 64-bit)</div>
+            <div class="feature-item"><span>✅</span> Automated Background Maven Compilation Pipeline</div>
+        </div>
     </div>
-</div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bar = document.getElementById("load-bar");
+            const percentText = document.getElementById("percentage-text");
+            const assetCount = document.getElementById("asset-count");
+            const assetLog = document.getElementById("asset-log");
+            const statusText = document.getElementById("status-text");
+            const wrapper = document.getElementById("loader-wrapper");
+            const content = document.getElementById("main-content");
+
+            const assets = [
+                { name: "icon.png (Textura de entorno)", weight: 25 },
+                { name: "index.html (Árbol de nodos DOM)", weight: 50 },
+                { name: "CSS Estilos (Renderizador CSS OM)", weight: 75 },
+                { name: "Pipeline de Cifrado (Motor JVM JavaScript)", weight: 100 }
+            ];
+
+            let textStage = 0;
+            const textInterval = setInterval(() => {
+                textStage = (textStage + 1) % 4;
+                if (textStage === 0) statusText.innerText = "Cargando...";
+                else if (textStage === 1) statusText.innerText = "Cargando..";
+                else if (textStage === 2) statusText.innerText = "Cargando.";
+                else statusText.innerText = "Cargando";
+            }, 400);
+
+            let currentProgress = 0;
+            let currentAssetIndex = 0;
+
+            const progressInterval = setInterval(() => {
+                if (currentProgress < 100) {
+                    currentProgress += 1;
+                    bar.style.width = currentProgress + "%";
+                    percentText.innerText = currentProgress + "%";
+
+                    if (currentAssetIndex < assets.length && currentProgress >= assets[currentAssetIndex].weight) {
+                        assetLog.innerText = "Cargado: " + assets[currentAssetIndex].name;
+                        currentAssetIndex++;
+                        assetCount.innerText = "Assets cargados: " + currentAssetIndex + "/4";
+                    }
+                } else {
+                    clearInterval(progressInterval);
+                    clearInterval(textInterval);
+                    
+                    statusText.innerText = "Cargando...";
+                    assetLog.innerText = "Estructura lista. Iniciando EdOfuscator...";
+
+                    setTimeout(() => {
+                        wrapper.style.opacity = "0";
+                        wrapper.style.visibility = "hidden";
+                        content.classList.add("visible");
+                    }, 600);
+                }
+            }, 30);
+        });
+    </script>
 </body>
-</html>
