@@ -2,4 +2,4 @@
 
 ### 📦 **2026 EdObfuscator. All rights reserved.**
 
-**EdOfuscator** Creator: SantiagoRivers 
+**Creator**: SantiagoRivers 
