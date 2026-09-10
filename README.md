@@ -1,5 +1,5 @@
 # 📢 EdOfuscator
 
-### 📦 **Automated Binary Encrypter for Minecraft Plugins (Maven-Ready)**
+### 📦 **2026 EdObfuscator. All rights reserved.**
 
 **EdOfuscator** Creator: SantiagoRivers 
