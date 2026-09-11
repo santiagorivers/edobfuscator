@@ -58,7 +58,7 @@
         @supports not ((backdrop-filter: blur(14px)) or (-webkit-backdrop-filter: blur(14px))) { nav.scrolled { background: rgba(13, 15, 23, 0.97); } }
         .nav-logo { display: flex; align-items: center; gap: 0.6rem; font-size: 1.15rem; font-weight: 700; text-decoration: none; color: var(--text); }
         .nav-logo img { width: 34px; height: 34px; image-rendering: pixelated; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links { display: flex; gap: 1.6rem; list-style: none; }
         .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.92rem; display: flex; align-items: center; gap: 0.45rem; transition: color 0.2s; }
         .nav-links a:hover { color: var(--accent-light); }
         .nav-actions { display: flex; align-items: center; gap: 1.2rem; }
@@ -67,6 +67,22 @@
         .btn-register { background: transparent; color: var(--accent-light); border: 1.5px solid var(--accent); border-radius: 8px; padding: 0.5rem 1.3rem; text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: all 0.25s; }
         .btn-register:hover { background: var(--accent); color: white; box-shadow: 0 0 18px var(--accent-glow); }
         .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; padding: 0.4rem; }
+
+        .ver-switch { position: relative; }
+        .ver-btn { background: var(--panel); border: 1px solid var(--border); color: var(--text-muted); border-radius: 8px; padding: 0.5rem 0.9rem; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; font-family: var(--win-font); font-weight: 600; transition: all 0.25s; }
+        .ver-btn:hover { color: var(--accent-light); border-color: rgba(229,115,115,0.45); box-shadow: 0 0 12px var(--accent-glow); }
+        .ver-btn .chev { font-size: 0.6rem; transition: transform 0.25s; }
+        .ver-switch.open .ver-btn .chev { transform: rotate(180deg); }
+        .ver-switch.open .ver-btn { color: var(--accent-light); border-color: rgba(229,115,115,0.45); }
+        .ver-menu { position: absolute; top: calc(100% + 10px); right: 0; background: rgba(23, 26, 40, 0.97); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid var(--border); border-radius: 12px; padding: 0.4rem; min-width: 210px; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.25s cubic-bezier(0.25,1,0.5,1); box-shadow: 0 14px 38px rgba(0,0,0,0.55); z-index: 1100; }
+        .ver-switch.open .ver-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .ver-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.68rem 0.9rem; border-radius: 8px; color: var(--text-muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: all 0.2s; }
+        .ver-item:hover { background: rgba(229,115,115,0.12); color: var(--accent-light); }
+        .ver-item i.lead { width: 18px; text-align: center; color: var(--accent-light); font-size: 0.9rem; }
+        .ver-item .ver-check { margin-left: auto; font-size: 0.72rem; color: var(--success); }
+        .ver-item:not(.active) .ver-check { visibility: hidden; }
+        .ver-item.active { color: var(--text); }
+        .ver-label { padding: 0.35rem 0.9rem 0.45rem; font-size: 0.65rem; font-weight: 800; letter-spacing: 1.2px; color: var(--text-muted); text-transform: uppercase; opacity: 0.7; }
 
         .hero { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 7rem 5vw 4rem; position: relative; background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(229,115,115,0.09), transparent), radial-gradient(circle at 85% 60%, rgba(229,115,115,0.05), transparent 40%); }
         .hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 44px 44px; -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent); mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent); animation: gridMove 24s linear infinite; pointer-events: none; }
@@ -78,6 +94,9 @@
         .hero-cta { display: flex; flex-direction: column; align-items: center; gap: 1.1rem; animation: fadeUp 0.8s 0.5s both; }
         .hero-compat { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.5rem 1.2rem; margin-top: 1.6rem; font-size: 0.8rem; color: var(--text-muted); animation: fadeUp 0.8s 0.65s both; }
         .hero-compat i { color: var(--accent-light); }
+        .hero-mobile-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.1rem; color: var(--accent-light); text-decoration: none; font-size: 0.85rem; background: rgba(229,115,115,0.08); border: 1px solid rgba(229,115,115,0.3); padding: 0.5rem 1.1rem; border-radius: 99px; transition: all 0.25s; animation: fadeUp 0.8s 0.75s both; }
+        .hero-mobile-link:hover { background: rgba(229,115,115,0.18); box-shadow: 0 0 16px var(--accent-glow); }
+        .hero-mobile-link i { color: var(--accent-light); }
 
         .btn-primary { display: inline-flex; align-items: center; gap: 0.7rem; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: white; text-decoration: none; padding: 0.95rem 2.4rem; border-radius: 12px; font-weight: 700; font-size: 1.05rem; box-shadow: 0 6px 24px var(--accent-glow); transition: all 0.3s cubic-bezier(0.25,1,0.5,1); }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 34px rgba(229,115,115,0.5); }
@@ -172,8 +191,18 @@
         .feature-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
         .feature-card p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.6; }
 
+        .mobile-card { display: flex; align-items: center; gap: 1.6rem; max-width: 880px; margin: 0 auto; background: var(--panel); border: 1px solid rgba(229,115,115,0.25); border-radius: 16px; padding: 1.8rem; flex-wrap: wrap; justify-content: center; box-shadow: 0 16px 44px rgba(0,0,0,0.4), 0 0 30px rgba(229,115,115,0.05); }
+        .mobile-icon { width: 64px; height: 64px; border-radius: 16px; background: rgba(229,115,115,0.12); border: 1px solid rgba(229,115,115,0.35); display: flex; justify-content: center; align-items: center; font-size: 1.8rem; color: var(--accent-light); flex-shrink: 0; }
+        .mobile-info { flex: 1; min-width: 240px; text-align: left; }
+        .mobile-info h3 { font-size: 1.15rem; margin-bottom: 0.4rem; }
+        .mobile-info p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+        .mobile-badges { display: flex; flex-wrap: wrap; gap: 0.5rem 1.1rem; margin-top: 0.8rem; font-size: 0.78rem; color: var(--text-muted); }
+        .mobile-badges i { color: var(--accent-light); }
+        .mobile-btn { padding: 0.85rem 1.8rem; font-size: 0.95rem; white-space: nowrap; }
+
         .compat-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.1rem; max-width: 960px; margin: 0 auto; }
         .compat-badge { display: flex; align-items: center; gap: 0.85rem; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 0.95rem 1.4rem; transition: all 0.3s; }
+        a.compat-badge { text-decoration: none; color: inherit; }
         .compat-badge:hover { border-color: rgba(229,115,115,0.45); transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.35), 0 0 18px rgba(229,115,115,0.08); }
         .compat-badge i.os { font-size: 1.5rem; color: var(--accent-light); }
         .compat-badge .cb-name { font-weight: 700; font-size: 0.95rem; }
@@ -211,8 +240,11 @@
         }
         @media (max-width: 560px) {
             .nav-actions .btn-register { padding: 0.45rem 0.9rem; font-size: 0.82rem; }
+            .ver-btn span.ver-text { display: none; }
+            .ver-btn { padding: 0.5rem 0.7rem; }
             .hero { padding: 6rem 6vw 3rem; }
             .hero-cta .btn-primary { width: 100%; justify-content: center; padding: 0.9rem 1.4rem; }
+            .mobile-info { text-align: center; }
             .terminal-input-row { flex-wrap: wrap; }
             .btn-run { flex: 1; justify-content: center; }
             .terminal-input { font-size: 16px; }
@@ -259,6 +291,18 @@
             <li><a href="terminos.html"><i class="fa-solid fa-file-contract"></i> Términos</a></li>
         </ul>
         <div class="nav-actions">
+            <div class="ver-switch" id="ver-switch">
+                <button class="ver-btn" id="ver-btn" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-laptop-mobile"></i>
+                    <span class="ver-text">PC</span>
+                    <i class="fa-solid fa-chevron-down chev"></i>
+                </button>
+                <div class="ver-menu" id="ver-menu">
+                    <div class="ver-label">Elegir versión</div>
+                    <a href="#" class="ver-item active"><i class="fa-solid fa-desktop lead"></i> Versión PC <i class="fa-solid fa-check ver-check"></i></a>
+                    <a href="EdOfuscator-Mobile.html" class="ver-item"><i class="fa-solid fa-mobile-screen-button lead"></i> Versión Mobile <i class="fa-solid fa-check ver-check"></i></a>
+                </div>
+            </div>
             <a href="#" class="nav-login"><i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión</a>
             <a href="#" class="btn-register">Registrarse</a>
             <button class="hamburger" id="hamburger" aria-label="Menú"><i class="fa-solid fa-bars"></i></button>
@@ -266,12 +310,13 @@
     </nav>
 
     <header class="hero">
-        <div class="hero-badge"><i class="fa-solid fa-circle"></i> v2.0 — Ahora con Self Defending y Anti-LLM</div>
+        <div class="hero-badge"><i class="fa-solid fa-circle"></i> v2.2.0 — Ahora con Self Defending y Anti-LLM</div>
         <h1>Java Plugin<br><span class="gradient">Ofuscación VM</span></h1>
         <p>Convierte el bytecode de tus plugins Spigot/Paper en código protegido a nivel binario, con cifrado de Byte Arrays, Self Defending avanzado y un pipeline automatizado de compilación Maven.</p>
         <div class="hero-cta">
             <a href="#playground" class="btn-primary">Obtener protección VM <i class="fa-solid fa-arrow-right"></i></a>
             <a href="#playground" class="link-secondary"><i class="fa-solid fa-code"></i> O prueba gratis la ofuscación estándar</a>
+            <a href="EdOfuscator-Mobile.html" class="hero-mobile-link"><i class="fa-solid fa-mobile-screen-button"></i> <b>¡Nuevo!</b>&nbsp;EdOfuscator Mobile — ofusca desde tu Android o iPhone</a>
         </div>
         <div class="hero-compat">
             <span><i class="fa-brands fa-windows"></i> Windows 11</span>
@@ -429,10 +474,35 @@
                 <h3>Anti-LLM + Debug Protection</h3>
                 <p>Contramedidas para que ni las IAs ni las herramientas de debugging reconstruyan tu código.</p>
             </div>
+            <div class="feature-card reveal">
+                <div class="feature-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                <h3>Mobile App (PWA)</h3>
+                <p>Instalable en Android e iPhone desde el navegador. Misma VM de ofuscación, funcionando 100% en tu dispositivo.</p>
+            </div>
         </div>
     </section>
 
-    <section id="compatibilidad">
+    <section id="mobile">
+        <h2 class="section-title reveal">También en tu teléfono</h2>
+        <p class="section-sub reveal">EdOfuscator Mobile funciona en Android, iPhone y cualquier navegador moderno. Ofusca código JavaScript y Python 100% en tu dispositivo, sin instalar nada.</p>
+        <div class="mobile-card reveal">
+            <div class="mobile-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <div class="mobile-info">
+                <h3>EdOfuscator Mobile — PWA</h3>
+                <p>Interfaz táctil completa con Editor, Opciones y Salida. String Array con cifrado RC4, Wrappers anti-IA, Self Defending y más: las mismas fases de la VM, ejecutándose localmente en tu teléfono.</p>
+                <div class="mobile-badges">
+                    <span><i class="fa-brands fa-android"></i> Android</span>
+                    <span><i class="fa-brands fa-apple"></i> iPhone / iPad</span>
+                    <span><i class="fa-solid fa-wifi"></i> Funciona offline</span>
+                    <span><i class="fa-solid fa-shield-halved"></i> 100% privado</span>
+                </div>
+            </div>
+            <a href="EdOfuscator-Mobile.html" target="_blank" rel="noopener" class="btn-primary mobile-btn">Abrir EdOfuscator Mobile <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <p class="compat-note reveal"><i class="fa-solid fa-circle-info"></i> Consejo: abre la página en tu teléfono y usa "Añadir a pantalla de inicio" para instalarla como una app con icono propio.</p>
+    </section>
+
+    <section id="compatibilidad" style="background: var(--bg-soft);">
         <h2 class="section-title reveal">Funciona en tu sistema</h2>
         <p class="section-sub reveal">Un solo ejecutable, compatible con todos los sistemas operativos y arquitecturas.</p>
         <div class="compat-grid">
@@ -461,8 +531,18 @@
                 <div><div class="cb-name">64-bit (x64)</div><div class="cb-sub">Arquitectura moderna</div></div>
                 <i class="fa-solid fa-circle-check cb-ok"></i>
             </div>
+            <a href="EdOfuscator-Mobile.html" class="compat-badge reveal">
+                <i class="fa-brands fa-android os"></i>
+                <div><div class="cb-name">Android</div><div class="cb-sub">PWA — vía navegador</div></div>
+                <i class="fa-solid fa-mobile-screen cb-ok"></i>
+            </a>
+            <a href="EdOfuscator-Mobile.html" class="compat-badge reveal">
+                <i class="fa-brands fa-apple os"></i>
+                <div><div class="cb-name">iPhone / iPad</div><div class="cb-sub">PWA — vía Safari</div></div>
+                <i class="fa-solid fa-mobile-screen cb-ok"></i>
+            </a>
         </div>
-        <p class="compat-note reveal"><i class="fa-solid fa-circle-check"></i> Sin emulación, sin dependencias: ejecución nativa en cada plataforma.</p>
+        <p class="compat-note reveal"><i class="fa-solid fa-circle-check"></i> Sin emulación, sin dependencias: ejecución nativa en escritorio y ofuscación local en el navegador para móviles.</p>
     </section>
 
     <section class="final-cta">
@@ -475,6 +555,7 @@
         <span>© 2026 EdOfuscator — Plugin Protection</span>
         <div class="footer-links">
             <a href="#documentacion">Documentación</a>
+            <a href="EdOfuscator-Mobile.html">Mobile</a>
             <a href="terminos.html">Términos</a>
             <a href="#">Privacidad</a>
         </div>
@@ -571,6 +652,20 @@
             const navLinks = document.getElementById("nav-links");
             hamburger.addEventListener("click", () => navLinks.classList.toggle("open"));
             navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => navLinks.classList.remove("open")));
+
+            const verSwitch = document.getElementById("ver-switch");
+            const verBtn = document.getElementById("ver-btn");
+            verBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                verSwitch.classList.toggle("open");
+                verBtn.setAttribute("aria-expanded", verSwitch.classList.contains("open") ? "true" : "false");
+            });
+            document.addEventListener("click", (e) => {
+                if (!verSwitch.contains(e.target)) verSwitch.classList.remove("open");
+            });
+            document.addEventListener("keydown", (e) => {
+                if (e.key === "Escape") verSwitch.classList.remove("open");
+            });
 
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); observer.unobserve(e.target); } });
