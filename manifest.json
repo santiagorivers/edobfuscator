@@ -1,0 +1,18 @@
+{
+  "name": "EdOfuscator Mobile",
+  "short_name": "EdOfuscator",
+  "description": "Ofuscador VM de código JS/Python — 100% local en tu dispositivo",
+  "start_url": "./EdOfuscator-Mobile.html",
+  "display": "standalone",
+  "background_color": "#0d0f17",
+  "theme_color": "#0d0f17",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%230d0f17'/%3E%3Cpath d='M256 96l128 48v112c0 88-56 148-128 160-72-12-128-72-128-160V144l128-48z' fill='%23e57373'/%3E%3Cpath d='M236 300l-44-44 20-20 24 24 64-64 20 20z' fill='%23fff'/%3E%3C/svg%3E",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
